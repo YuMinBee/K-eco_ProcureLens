@@ -1,0 +1,8 @@
+*.md text eol=lf
+*.py text eol=lf
+*.html text eol=lf
+*.csv text eol=lf
+*.json text eol=lf
+
+*.joblib binary
+*.pkl binary

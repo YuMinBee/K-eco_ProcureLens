@@ -1,0 +1,4 @@
+﻿모델,test_events,Hit@1,Hit@3,Hit@5,MRR,비고
+규칙기반_균형형유사,804,0.284826,0.490050,0.606965,0.437229,점수_프리셋 균형형을 학습셋 feature명에 맞춰 적용
+AI_랜덤포레스트_기존feature_내장구현,804,0.477612,0.705224,0.789801,0.620287,기존 feature + 내장 랜덤포레스트
+AI_랜덤포레스트_보강feature_sklearn,804,0.504975,0.717662,0.814677,0.641693,보강 feature + scikit-learn RandomForestClassifier

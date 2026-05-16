@@ -1,0 +1,5 @@
+﻿구분,이름,test_events,Hit@1,Hit@3,Hit@5,MRR,비고
+AI모델,HistGradientBoosting_20-24train,1140,58.68,77.54,85.18,0.704,0513 adjusted 평가 결과
+AI모델,RandomForest_addval,1140,55.35,77.11,85.09,0.6843,0513 adjusted 평가 결과
+AI모델,ExtraTrees_addval,1140,52.63,74.3,82.11,0.6603,0513 adjusted 평가 결과
+규칙기반,기존 규칙기반 균형형 유사,804,28.48,49.0,60.7,0.4372,점수_프리셋 균형형을 학습셋 feature명에 맞춰 적용한 기존 평가

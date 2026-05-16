@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+
+.env
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+.DS_Store
+Thumbs.db
+*.log
+
+# Runtime artifacts created when the pipeline is executed from this folder.
+02_processed/
+
+# Raw public-data/API archives should stay outside the GitHub submission repo.
+01_raw_data/

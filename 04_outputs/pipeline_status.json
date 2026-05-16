@@ -1,0 +1,32 @@
+{
+  "status": "success",
+  "started_at": "2026-05-16 12:15:01",
+  "finished_at": "2026-05-16 12:16:27",
+  "trigger": "manual",
+  "schedule_label": "",
+  "items": [],
+  "items_csv": "",
+  "dashboard_items": [
+    "4710160801:유기응집제",
+    "4111331901:기타수질분석기",
+    "4016150601:여과장치",
+    "4710160802:무기응집제",
+    "4710169801:수처리용여과재",
+    "4015150501:정량펌프",
+    "4010160101:송풍기",
+    "4111250101:유량계",
+    "4015151301:수중펌프",
+    "4014169401:제수밸브"
+  ],
+  "item_registry": "/data4tb/kec/kec/02_processed/대시보드_물품목록.csv",
+  "top_per_item": 50,
+  "start_year": 2022,
+  "end_year": 2025,
+  "use_api": false,
+  "use_smpp": false,
+  "ai_engine": "hgb",
+  "ai_mode": "score",
+  "dry_run": false,
+  "dashboard_html": "04_dashboard/procurement_decision_dashboard.html",
+  "duration_seconds": 86.0
+}
