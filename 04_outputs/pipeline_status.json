@@ -18,7 +18,7 @@
     "4015151301:수중펌프",
     "4014169401:제수밸브"
   ],
-  "item_registry": "/data4tb/kec/kec/02_processed/대시보드_물품목록.csv",
+  "item_registry": "02_processed/대시보드_물품목록.csv",
   "top_per_item": 50,
   "start_year": 2022,
   "end_year": 2025,
@@ -27,6 +27,6 @@
   "ai_engine": "hgb",
   "ai_mode": "score",
   "dry_run": false,
-  "dashboard_html": "04_dashboard/procurement_decision_dashboard.html",
+  "dashboard_html": "02_dashboard/procurement_decision_dashboard.html",
   "duration_seconds": 86.0
 }

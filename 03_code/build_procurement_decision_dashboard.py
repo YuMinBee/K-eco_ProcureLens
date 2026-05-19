@@ -20,11 +20,11 @@ from typing import Any, Iterable
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PROCESSED = ROOT / "02_processed"
+PROCESSED = ROOT / "02_processed" if (ROOT / "02_processed" / "후보업체_목록.csv").exists() else ROOT / "04_outputs"
 STANDARD = PROCESSED / "한국어_표준데이터셋"
 FEATURE_DIR = PROCESSED / "feature_inputs"
 MODEL_OUTPUTS = PROCESSED / "model_outputs"
-DASHBOARD_DIR = ROOT / "04_dashboard"
+DASHBOARD_DIR = ROOT / "02_dashboard"
 DASHBOARD_HTML = DASHBOARD_DIR / "procurement_decision_dashboard.html"
 PIPELINE_STATUS = PROCESSED / "pipeline_status.json"
 
@@ -128,11 +128,19 @@ def load_rule_comparison() -> dict[str, dict[str, str]]:
     return {str(row.get("candidate_id") or "").strip(): row for row in rows}
 
 
+def preset_result_paths() -> list[Path]:
+    nested = PROCESSED / "scored_outputs" / "후보업체_목록"
+    flat = PROCESSED / "scored_outputs"
+    paths = sorted(nested.glob("업체추천_점수_*.csv"))
+    if not paths:
+        paths = sorted(flat.glob("업체추천_점수_*.csv"))
+    return paths
+
+
 def load_preset_results() -> tuple[dict[str, dict[str, dict[str, Any]]], list[str]]:
-    base = PROCESSED / "scored_outputs" / "후보업체_목록"
     by_candidate: dict[str, dict[str, dict[str, Any]]] = defaultdict(dict)
     found: list[str] = []
-    for path in sorted(base.glob("업체추천_점수_*.csv")):
+    for path in preset_result_paths():
         preset = path.stem.replace("업체추천_점수_", "")
         found.append(preset)
         grouped: dict[str, list[dict[str, str]]] = defaultdict(list)
@@ -352,7 +360,7 @@ def build_payload() -> dict[str, Any]:
         LOCAL_HGB_COMPARE,
         PIPELINE_STATUS,
         HGB_ZIP,
-        *sorted((PROCESSED / "scored_outputs" / "후보업체_목록").glob("업체추천_점수_*.csv")),
+        *preset_result_paths(),
         STANDARD / "조달청_나라장터_사용자정보서비스_조달업체기본정보조회.csv",
         STANDARD / "조달청_나라장터_낙찰정보서비스_물품.csv",
     ]

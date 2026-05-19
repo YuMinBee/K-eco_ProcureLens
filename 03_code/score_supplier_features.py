@@ -3,7 +3,7 @@
 
 Typical flow:
   python 03_code/score_supplier_features.py --init
-  python 03_code/score_supplier_features.py --candidates 02_processed/후보업체_목록.csv --all-presets
+  python 03_code/score_supplier_features.py --candidates 04_outputs/후보업체_목록.csv --all-presets
 
 Business-level features are merged by 사업자번호_정규화.
 Item-supplier features are merged by candidate_id or 물품번호 + 사업자번호_정규화.

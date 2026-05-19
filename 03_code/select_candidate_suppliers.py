@@ -2,7 +2,7 @@
 """Select item-level supplier candidates from G2B supply-product data.
 
 Default output:
-  02_processed/후보업체_목록.csv
+  04_outputs/후보업체_목록.csv
 
 The file keeps stable columns shared with teammates:
 candidate_id, 물품번호, 물품명, 사업자번호, 사업자번호_정규화, 업체명, 대표물품, 제조업체
@@ -27,7 +27,7 @@ BASIC_DIR = RAW / "나라장터_사용자정보서비스" / "2. 조달업체기�
 AWARDS_DIR = RAW / "나라장터_낙찰정보서비스"
 
 DEFAULT_OUTPUT = PROCESSED / "후보업체_목록.csv"
-DEFAULT_SUMMARY = ROOT / "00_docs" / "품목_후보업체_선정요약.md"
+DEFAULT_SUMMARY = ROOT / "05_data_summary" / "품목_후보업체_선정요약.md"
 DEFAULT_START_YEAR = 2022
 DEFAULT_END_YEAR = 2025
 
@@ -35,6 +35,13 @@ DEFAULT_ITEMS = [
     ("4710160801", "유기응집제"),
     ("4111331901", "기타수질분석기"),
     ("4016150601", "여과장치"),
+    ("4710160802", "무기응집제"),
+    ("4710169801", "수처리용여과재"),
+    ("4015150501", "정량펌프"),
+    ("4010160101", "송풍기"),
+    ("4111250101", "유량계"),
+    ("4015151301", "수중펌프"),
+    ("4014169401", "제수밸브"),
 ]
 
 

@@ -27,6 +27,7 @@ PROCESSED = ROOT / "02_processed"
 STATUS_PATH = PROCESSED / "pipeline_status.json"
 # New item codes are accumulated here so later runs keep previously added dashboard items.
 ITEM_REGISTRY = PROCESSED / "대시보드_물품목록.csv"
+SUBMISSION_ITEM_REGISTRY = ROOT / "04_outputs" / "대시보드_물품목록.csv"
 HGB_ZIP = ROOT / "05_15_추가" / "0513 adjusted.zip"
 HGB_SCRIPT_MEMBER = "scripts/histgradientboosting/train_supplier_rank_model_histgradientboostingclassifier_train20to24.py"
 GENERATED_HGB_SCRIPT = SCRIPTS / ".pipeline_hgb" / "train_supplier_rank_model_histgradientboostingclassifier_train20to24.py"
@@ -45,6 +46,13 @@ DEFAULT_DASHBOARD_ITEMS = [
     ("4710160801", "유기응집제"),
     ("4111331901", "기타수질분석기"),
     ("4016150601", "여과장치"),
+    ("4710160802", "무기응집제"),
+    ("4710169801", "수처리용여과재"),
+    ("4015150501", "정량펌프"),
+    ("4010160101", "송풍기"),
+    ("4111250101", "유량계"),
+    ("4015151301", "수중펌프"),
+    ("4014169401", "제수밸브"),
 ]
 
 
@@ -141,6 +149,8 @@ def configure_item_registry(args: argparse.Namespace) -> None:
         base_items: list[tuple[str, str]] = []
     elif ITEM_REGISTRY.exists():
         base_items = load_items_csv(ITEM_REGISTRY)
+    elif SUBMISSION_ITEM_REGISTRY.exists():
+        base_items = load_items_csv(SUBMISSION_ITEM_REGISTRY)
     else:
         base_items = merge_items(DEFAULT_DASHBOARD_ITEMS, load_items_from_candidates(PROCESSED / "후보업체_목록.csv"))
 
@@ -230,7 +240,7 @@ def candidate_command(args: argparse.Namespace) -> list[str]:
         "--output",
         str(PROCESSED / "후보업체_목록.csv"),
         "--summary",
-        str(ROOT / "00_docs" / "품목_후보업체_선정요약.md"),
+        str(ROOT / "05_data_summary" / "품목_후보업체_선정요약.md"),
     ]
     for item in getattr(args, "effective_items", args.item or []):
         command.extend(["--item", item])
@@ -333,6 +343,13 @@ def now_text() -> str:
     return dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 
+def rel_path(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
 def write_status(payload: dict[str, object]) -> None:
     STATUS_PATH.parent.mkdir(parents=True, exist_ok=True)
     STATUS_PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -348,7 +365,7 @@ def status_payload(args: argparse.Namespace, status: str, started_at: str, **ext
         "items": args.item or [],
         "items_csv": str(args.items_csv) if args.items_csv else "",
         "dashboard_items": getattr(args, "dashboard_items", []),
-        "item_registry": str(ITEM_REGISTRY) if args.remember_items else "",
+        "item_registry": rel_path(ITEM_REGISTRY) if args.remember_items else "",
         "top_per_item": args.top_per_item,
         "start_year": args.start_year,
         "end_year": args.end_year,
@@ -357,7 +374,7 @@ def status_payload(args: argparse.Namespace, status: str, started_at: str, **ext
         "ai_engine": args.ai_engine,
         "ai_mode": args.ai_mode,
         "dry_run": args.dry_run,
-        "dashboard_html": "04_dashboard/procurement_decision_dashboard.html",
+        "dashboard_html": "02_dashboard/procurement_decision_dashboard.html",
     }
     payload.update(extra)
     return payload
